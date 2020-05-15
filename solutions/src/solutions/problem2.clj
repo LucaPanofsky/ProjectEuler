@@ -9,28 +9,28 @@
 
 (defn Fibonaccis []
   (letfn [(fib [b a]
-               (lazy-seq
-                (cons b (fib (+ a b) b))))]
+            (lazy-seq
+             (cons b (fib (+ a b) b))))]
     (fib 0 1N)))
 
-(comment 
- (->> (Fibonaccis)
-      (filter even?)
-      (take-while (fn [n] (< n 4000000)))
-      (reduce +)))
+(comment
+  (->> (Fibonaccis)
+       (filter even?)
+       (take-while (fn [n] (< n 4000000)))
+       (reduce +)))
 
-
-;; (lazy-seq
-;;  (cons 0 (fib 1 0)))
+;; Expanding the recursion:
 
 ;; (lazy-seq
-;;  (cons 1 (fib 1 1)))
+;;  (cons 0 (lazy-seq
+;;           (cons 1 (lazy-seq
+;;                    (cons 1 (lazy-seq
+;;                             (cons 2 (lazy-seq
+;;                                      (cons 3 (lazy-seq
+;;                                               (cons 5 (lazy-seq ...)))))))))))))
 
-;; (lazy-seq
-;;  (cons 1 (fib 2 1)))
 
-;; (lazy-seq
-;;  (cons 2 (fib 3 2)))
-
-;; (lazy-seq
-;;   ... )
+(defn Fibonaccis [b a]
+  (lazy-seq
+   (cons b (Fibonaccis  (+ a b) b))))
+;; (take 10 (Fibonaccis 0 1N))
