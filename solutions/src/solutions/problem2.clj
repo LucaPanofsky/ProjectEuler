@@ -13,24 +13,19 @@
                 (cons b (fib (+ a b) b))))]
     (fib 0 1N)))
 
-(comment 
+(comment
  (->> (Fibonaccis)
       (filter even?)
       (take-while (fn [n] (< n 4000000)))
       (reduce +)))
 
 
-;; (lazy-seq
-;;  (cons 0 (fib 1 0)))
+;; Expanding the recursion:
 
 ;; (lazy-seq
-;;  (cons 1 (fib 1 1)))
-
-;; (lazy-seq
-;;  (cons 1 (fib 2 1)))
-
-;; (lazy-seq
-;;  (cons 2 (fib 3 2)))
-
-;; (lazy-seq
-;;   ... )
+;;  (cons 0 (lazy-seq
+;;           (cons 1 (lazy-seq
+;;                    (cons 1 (lazy-seq
+;;                             (cons 2 (lazy-seq
+;;                                      (cons 3 (lazy-seq
+;;                                                (cons 5 (lazy-seq ...)))))))))))))
